@@ -43,14 +43,7 @@ pub struct RequestVoteResponse {
 
 #[async_trait]
 pub trait BargeService {
-    async fn append_entries(
-        &self,
-        request: AppendEntriesRequest,
-    ) -> Result<AppendEntriesResponse>;
+    async fn append_entries(&self, request: AppendEntriesRequest) -> Result<AppendEntriesResponse>;
 
-    async fn request_vote(
-        &self,
-        request: RequestVoteRequest,
-    ) -> Result<RequestVoteResponse>;
+    async fn request_vote(&self, request: RequestVoteRequest) -> Result<RequestVoteResponse>;
 }
-

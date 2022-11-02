@@ -5,6 +5,6 @@ edition = "2021"
 
 [dependencies]
 async-trait = "0.1"
-errs = { version = "0.1", git = "https://github.com/gregxy/errs.git"}
+errs = { version = "0.1", path = "../errs"}
 serde = { version = "1.0", features = ["derive"] }
 serde_bytes = "0.11"
