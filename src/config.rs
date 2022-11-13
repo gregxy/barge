@@ -1,5 +1,5 @@
 use errs::create_msg_err;
-
+use rand::Rng;
 use serde::{Deserialize, Serialize};
 use std::time::Duration;
 
@@ -97,6 +97,20 @@ impl Config {
         }
 
         Err(ConfigError::new(errs.join("; ")))
+    }
+
+    pub fn pick_election_timeout(&self) -> Duration {
+        Duration::from_micros(rand::thread_rng().gen_range(
+            self.election_timeout_min.as_micros() as u64
+                ..=self.election_timeout_max.as_micros() as u64,
+        ))
+    }
+
+    pub fn pick_heartbeat_timeout(&self) -> Duration {
+        Duration::from_micros(rand::thread_rng().gen_range(
+            self.heartbeat_timeout_min.as_micros() as u64
+                ..=self.heartbeat_timeout_max.as_micros() as u64,
+        ))
     }
 }
 
