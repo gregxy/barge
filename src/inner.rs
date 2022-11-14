@@ -10,9 +10,9 @@ pub(crate) enum Role {
 }
 
 pub(crate) struct State {
-    role: Role,
-    tick: u64,
-    term: u64,
+    pub role: Role,
+    pub tick: u64,
+    pub term: u64,
 }
 
 impl Default for State {
@@ -26,8 +26,8 @@ impl Default for State {
 }
 
 pub(crate) struct BargeCore {
-    state: Mutex<State>,
-    config: Config,
+    pub state: Mutex<State>,
+    pub config: Config,
 }
 
 unsafe impl Send for BargeCore {}
