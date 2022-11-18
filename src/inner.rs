@@ -13,6 +13,8 @@ pub(crate) struct State {
     pub role: Role,
     pub tick: u64,
     pub term: u64,
+    pub vote_count: u32,
+    pub vote_threshold: u32,
 }
 
 impl Default for State {
@@ -21,6 +23,8 @@ impl Default for State {
             role: Role::Follower,
             tick: 0,
             term: 0,
+            vote_count: 0,
+            vote_threshold: 0,
         }
     }
 }
@@ -35,9 +39,12 @@ unsafe impl Sync for BargeCore {}
 
 impl BargeCore {
     pub(crate) fn new(config: Config) -> Self {
+        let mut state = State::default();
+        state.vote_threshold = (config.peer_uris.len() as u32) / 2;
+
         Self {
             state: Mutex::new(State::default()),
-            config
+            config,
         }
     }
 }

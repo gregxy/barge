@@ -24,6 +24,9 @@ pub struct Config {
 
     // Upper bound of timeout value when waiting for election to complete.
     pub election_timeout_max: Duration,
+
+    // URIs of peers.
+    pub peer_uris: Vec<String>,
 }
 
 impl Default for Config {
@@ -35,6 +38,7 @@ impl Default for Config {
             heartbeat_timeout_max: Duration::from_millis(1100),
             election_timeout_min: Duration::from_millis(900),
             election_timeout_max: Duration::from_millis(1100),
+            peer_uris: Vec::new(),
         }
     }
 }
@@ -89,6 +93,13 @@ impl Config {
             errs.push(format!(
                 "Expect election_timeout_max ({:?}) > election_timeout_min ({:?})",
                 self.election_timeout_max, self.election_timeout_min
+            ));
+        }
+
+        if self.peer_uris.len() % 2 != 0 {
+            errs.push(format!(
+                "Expect even number of peers (= {})",
+                self.peer_uris.len()
             ));
         }
 
